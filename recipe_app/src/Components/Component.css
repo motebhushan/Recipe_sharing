@@ -1,0 +1,151 @@
+body{
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* navbar css */
+  .ul{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    list-style-type: none;
+    padding: 0px;
+    padding-left: 20px;
+    margin: 0px;
+    
+    overflow: hidden;
+  }
+  .ul a{
+    margin-left: 30px;
+    color: rgb(0, 0, 0)  ;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    text-align: center;
+  }
+  .ul a:hover{
+  font-weight: bold;
+  }
+  .ul li {
+    margin-left: 20px;
+    float: left;
+  }
+  /* navbar css ends here */
+  /* save_recipe css start */
+  form{
+  
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    
+  }
+  .form div {
+    margin-bottom: 15px;
+  }
+  
+  .form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form input[type="text"],
+  .form textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    box-sizing: border-box;
+  }
+  
+  .form input[type="text"]:focus,
+  .form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  }
+  
+  .form button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form button:hover {
+    background-color: #0056b3;
+
+  }
+
+/* Card css start */
+.card {
+  display: inline-block;
+  border-radius: 8px;
+  border: 2px 2px solid black;
+  max-width: 500px;
+  margin: 20px;
+  padding: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease;
+}
+.image{
+  border-radius: 10px;
+  max-width: 480px;
+  margin: 5px auto;
+  height: 250px;
+}
+.title{
+  font-weight: bold;
+  margin: 0px;
+}
+.card-discription{
+  font-size: 5px;
+  margin: 0px;
+}
+
+.card:hover{
+background-color: hsl(180, 20%, 97%);
+cursor: pointer;
+}
+
+/* Recipe tab css start */
+.container{
+  margin: 30px;
+  text-align: "center";
+  padding : "20px";
+}
+
+.cardContainer {
+  display: "flex";
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
+.addRecipeBtn{
+  padding: 7px;
+  position: fixed;
+  bottom: 70px;
+  right: 70px;
+  height: 35px;
+  border-radius: 10px;
+  background-color: #79a9db;
+  color: white;
+}
+.addRecipeBtn a{
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+.addRecipeBtn:hover{
+  background-color: #0d77e9;
+}
+  
