@@ -23,18 +23,10 @@ function Recipe_tab(){
             description: "This is the description for Card 2."
           }
         ]);
-
-        // Function to add a new card
-  const addCard = () => {
-    const newCard = {
-      id: cards.length + 1,
-      image: "https://via.placeholder.com/150",
-      title: `Card ${cards.length + 1}`,
-      description: `This is the description for Card ${cards.length + 1}.`
-    };
-    setCards([...cards, newCard]);
-  };
-
+        
+     
+      
+ 
     return (
        <>
        <Navbar/>
@@ -44,9 +36,11 @@ function Recipe_tab(){
         {cards.map((card) => (
           <Card
             key={card.id}
+            id={card.id}
             image={card.image}
             title={card.title}
             description={card.description}
+                   
           />
         ))}
       </div>
