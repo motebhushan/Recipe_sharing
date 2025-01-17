@@ -4,6 +4,7 @@ import App from './App.jsx';
 import Recipe_tab from './Components/Recipe_tab.jsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Save_recipe from './Components/Save_recipe.jsx';
+import Recipe_info from './Components/Recipe_info.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -12,6 +13,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/Recipe_tab" element={<Recipe_tab />} />
         <Route path="/Save_recipe" element={<Save_recipe />} />
+        <Route path="/Recipe_info" element={<Recipe_info />} />
       </Routes>
     </Router>
   </StrictMode>

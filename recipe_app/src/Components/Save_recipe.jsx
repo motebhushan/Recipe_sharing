@@ -2,34 +2,61 @@ import React, { Component } from "react"
 import './Component.css';
 function Save_recipe(){
            // Function to add a new card
-  const addCard = () => {
-    const form=document.getElementById('form1');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-    });
-    const newCard = {
-      id: cards.length + 1,
-      image: "https://via.placeholder.com/150",
-      title: `Card ${cards.length + 1}`,
-      description: `This is the description for Card ${cards.length + 1}.`
-    };
-    setCards([...cards, newCard]);
+  const addCard = (e) => {
+    e.preventDefault();
+
   };
 
     return(
         <>
         
-        <form className="form" action="" id="form1">
-               <div><label htmlFor="title" required>Title</label> <input type="text" /></div>
+         <form className="form" id="form1" onSubmit={addCard}>
+                <div>
+                    <label htmlFor="title">Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        
+                        required
+                    />
+                </div>
 
-               <div><label htmlFor="Discription">Discription</label> <textarea name="Discription" id="Discription" cols={20} rows={3} required></textarea></div>
+                <div>
+                    <label htmlFor="description">Description</label>
+                    <textarea
+                        name="description"
+                        id="description"
+                        cols={20}
+                        rows={3}
+                        required
+                    ></textarea>
+                </div>
 
-               <div><label htmlFor="Ingridiants">Ingridiants</label> <textarea name="Ingridiants" id="Ingridiants" cols={20} rows={3} required></textarea></div>
+                <div>
+                    <label htmlFor="ingredients">Ingredients</label>
+                    <textarea
+                        name="ingredients"
+                        id="ingredients"
+                        cols={20}
+                        rows={3}
+                        required
+                    ></textarea>
+                </div>
 
-               <div><label htmlFor="Steps">Steps</label> <textarea name="Steps" id="Steps" cols={20} rows={10} required></textarea></div>
+                <div>
+                    <label htmlFor="steps">Steps</label>
+                    <textarea
+                        name="steps"
+                        id="steps"
+                        cols={20}
+                        rows={5}
+                        required
+                    ></textarea>
+                </div>
 
-                <button onClick={addCard}>Save</button>
-        </form>
+                <button type="submit">Save</button>
+            </form>
+
         </>
     )
 }

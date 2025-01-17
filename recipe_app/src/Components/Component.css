@@ -116,6 +116,10 @@ body{
 background-color: hsl(180, 20%, 97%);
 cursor: pointer;
 }
+.card.blur {
+  filter: blur(5px);
+  pointer-events: none; /* Prevent clicks on the card when blurred */
+}
 
 /* Recipe tab css start */
 .container{
@@ -148,4 +152,93 @@ cursor: pointer;
 .addRecipeBtn:hover{
   background-color: #0d77e9;
 }
-  
+
+/* recipe info csss start */
+
+.recipe-info-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.recipe-info-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.recipe-info-content img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+  border-radius: 8px;
+}
+
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: transform 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Keyframe Animation for Overlay */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: scale(0.95);
+  }
+  to {
+      opacity: 1;
+      transform: scale(1);
+  }
+}
+
+.steps-list {
+  padding-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.steps-list .step-item {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  position: relative;
+}
+
+
+/* .steps-list .step-item::before {
+  content: counter(step-counter) ". ";
+  counter-increment: step-counter;
+  font-weight: bold;
+  color: #ff8c00;
+  position: absolute;
+  left: -25px;
+} */
+
+.steps-list {
+  counter-reset: step-counter; /* Reset the counter for steps */
+}

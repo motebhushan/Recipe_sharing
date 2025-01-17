@@ -14,13 +14,17 @@ function Recipe_tab(){
             id: 1,
             image: gulabGamun,
             title: "Card 1",
-            description: "This is the description for Card 1."
+            description: "This is the description for Card 1.",
+            steps:["eefdffbfgfdg","fbdfbgbbbb"],
+            ingrediants:"Rice Tandul Tamata",
           },
           {
             id: 2,
             image: "https://via.placeholder.com/150",
             title: "Card 2",
-            description: "This is the description for Card 2."
+            description: "This is the description for Card 2.",
+            steps:["eefdffbfgfdg","fbdfbgbbbb"],
+            ingrediants:"Rice Tandul Tamata",
           }
         ]);
         
@@ -40,7 +44,8 @@ function Recipe_tab(){
             image={card.image}
             title={card.title}
             description={card.description}
-                   
+            steps={card.steps}   
+            ingrediants={card.ingrediants}
           />
         ))}
       </div>
