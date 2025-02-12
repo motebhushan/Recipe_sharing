@@ -1,14 +1,11 @@
-const express = require('express');
-const route = express.Router();
+const express = require("express");
+const { addData, getAllData, getRecipe, deleteRecipe } = require("../controllers/RecipeCon");
 
-// Import controllers
-const { getAllData, getRecipe, addData, deleteRecipe }= require('../controllers/RecipeCon');  
+const router = express.Router();
 
+router.post("/", addData); 
+router.get("/", getAllData); 
+router.get("/:id", getRecipe);
+router.delete("/:id", deleteRecipe); 
 
-
-route.get('/', getAllData);         
-route.get('/:id', getRecipe);       
-route.post('/', addData);           
-route.delete('/:id', deleteRecipe); 
-
-module.exports = route; 
+module.exports = router;

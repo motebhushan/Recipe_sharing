@@ -1,11 +1,11 @@
 import './Component.css';
-import Recipe_info from './Recipe_info';
+import RecipeInfo from './Recipe_info';  // Updated import name
 import { useState } from 'react';
 
-function Card({ id, image, title, description ,steps,ingrediants}) {
+function Card({ id, image, title, description, steps, ingredients }) {
     const [active, setActive] = useState(false);
 
-    const cardCon = () => {
+    const openRecipeInfo = () => {
         setActive(true);
     };
 
@@ -15,21 +15,23 @@ function Card({ id, image, title, description ,steps,ingrediants}) {
 
     return (
         <>
-            <div className={`card ${active ? 'blur' : ''}`} id={id} onClick={cardCon}>
+            <div className={`card ${active ? 'blur' : ''}`} id={id} onClick={openRecipeInfo}>
                 <div className="card-body">
-                    <img className="image" src={image} alt={title} />
+                    <img className="image" src={"https://picsum.photos/300/200"} alt={title} />
                     <h5 className="card-title">{title}</h5>
                     <h6 className="card-description">{description}</h6>
+                  
                 </div>
             </div>
             {active && (
-                <Recipe_info
-                    image={image}
+                <RecipeInfo
+                    image={"https://picsum.photos/300/200"}
                     title={title}
                     description={description}
                     onClose={closeRecipeInfo}
                     steps={steps}
-                    ingrediants={ingrediants}
+                    ingredients={ingredients}  
+                    id={id}
                 />
             )}
         </>

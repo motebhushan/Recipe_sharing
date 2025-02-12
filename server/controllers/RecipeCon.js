@@ -1,126 +1,54 @@
-const RecipeSchema = require('../models/RecipeScheema');
+const Recipe = require("../models/RecipeScheema");
 
 const addData = async (req, res) => {
   try {
-    const { title, description, ingredients, steps, photo } = req.body;
-
-    // Validate if all required fields are provided
-    if (!title || !description || !ingredients || !steps || !photo) {
-      return res.status(400).send({
-        status: false,
-        message: 'Request is not complete. All fields are required.',
-      });
+    const { title, description, ingredients, steps } = req.body;
+    if (!title || !description || !ingredients || !steps) {
+      return res.status(400).json({ status: false, message: "All fields are required." });
     }
-
-    // Create a new recipe document
-    const recipe = new RecipeSchema({
-      title,
-      description,
-      ingredients,
-      steps,
-      photo
-    });
-
-    // Save the recipe to the database
-    await recipe.save();
-
-    res.status(201).send({
-      status: true,
-      message: 'Recipe added successfully',
-      data: recipe,
-    });
-  } catch (err) {
-    console.error('Error while adding recipe:', err.message);
-
-    res.status(500).send({
-      status: false,
-      message: 'An error occurred while adding the recipe',
-    });
+    const newRecipe = new Recipe({ title, description, ingredients, steps });
+    await newRecipe.save();
+    res.status(201).json({ status: true, message: "Recipe added successfully", data: newRecipe });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "Internal server error" });
   }
 };
 
 const getAllData = async (req, res) => {
   try {
-    // Retrieve all recipes
-    const data = await RecipeSchema.find();
-
-    if (data.length === 0) {
-      return res.status(404).send({
-        status: false,
-        message: 'No data found.',
-      });
+    const data = await Recipe.find();
+    if (!data.length) {
+      return res.status(404).json({ status: false, message: "No data found." });
     }
-
-    res.status(200).send({
-      status: true,
-      message: 'Data retrieved successfully.',
-      data: data,
-    });
-  } catch (err) {
-    console.error('Error while fetching data:', err.message);
-
-    res.status(500).send({
-      status: false,
-      message: 'An error occurred while fetching data.',
-    });
+    res.status(200).json({ status: true, message: "Data retrieved successfully.", data });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "An error occurred while fetching data." });
   }
 };
 
 const getRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-
-    // Find the recipe by ID
-    const recipe = await RecipeSchema.findById(id);
-
+    const recipe = await Recipe.findById(id);
     if (!recipe) {
-      return res.status(404).send({
-        status: false,
-        message: 'Recipe not found.',
-      });
+      return res.status(404).json({ status: false, message: "Recipe not found." });
     }
-
-    res.status(200).send({
-      status: true,
-      message: 'Recipe retrieved successfully.',
-      data: recipe,
-    });
-  } catch (err) {
-    console.error('Error while fetching recipe:', err.message);
-
-    res.status(500).send({
-      status: false,
-      message: 'An error occurred while fetching the recipe.',
-    });
+    res.status(200).json({ status: true, message: "Recipe retrieved successfully.", data: recipe });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "An error occurred while fetching the recipe." });
   }
 };
 
 const deleteRecipe = async (req, res) => {
   try {
     const { id } = req.params;
-
-    // Attempt to delete the recipe by ID
-    const deletedRecipe = await RecipeSchema.findByIdAndDelete(id);
-
+    const deletedRecipe = await Recipe.findByIdAndDelete(id);
     if (!deletedRecipe) {
-      return res.status(404).send({
-        status: false,
-        message: 'Recipe not found. Unable to delete.',
-      });
+      return res.status(404).json({ status: false, message: "Recipe not found. Unable to delete." });
     }
-
-    res.status(200).send({
-      status: true,
-      message: 'Recipe deleted successfully.',
-      data: deletedRecipe,
-    });
-  } catch (err) {
-    console.error('Error while deleting recipe:', err.message);
-
-    res.status(500).send({
-      status: false,
-      message: 'An error occurred while deleting the recipe.',
-    });
+    res.status(200).json({ status: true, message: "Recipe deleted successfully.", data: deletedRecipe });
+  } catch (error) {
+    res.status(500).json({ status: false, message: "An error occurred while deleting the recipe." });
   }
 };
 

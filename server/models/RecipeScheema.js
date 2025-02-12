@@ -1,28 +1,34 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+
 const recipeSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: [true, 'Recipe title is required'],
+      required: [true, "Recipe title is required"],
       trim: true,
+      minlength: [3, "Title must be at least 3 characters long"],
+      maxlength: [100, "Title cannot exceed 100 characters"],
     },
     description: {
       type: String,
-      required: [true, 'Recipe description is required'],
+      required: [true, "Recipe description is required"],
+      minlength: [10, "Description should be at least 10 characters long"],
     },
-    ingredients: [
-        {
-          name: { type: String, required: true },
-          quantity: { type: String, required: true },
-        },
-      ],
-      steps: {
-        type: [String], // Array of strings
-        required: [true, 'Steps are required'],
+    ingredients: {
+      type: [String], // Array of strings for ingredients
+      required: [true, "Ingredients are required"],
+      validate: {
+        validator: (ingredients) => ingredients.length > 0,
+        message: "At least one ingredient is required",
       },
-    photo: {
-      type: String, 
-     
+    },
+    steps: {
+      type: [String], // Array of strings for steps
+      required: [true, "Steps are required"],
+      validate: {
+        validator: (steps) => steps.length > 0,
+        message: "At least one step is required",
+      },
     },
   },
   {
@@ -30,7 +36,6 @@ const recipeSchema = new mongoose.Schema(
   }
 );
 
-// Model definition
-const RecipeScheema = mongoose.model('Recipe', recipeSchema);
+const RecipeSchema = mongoose.model("Recipe", recipeSchema);
 
-module.exports = RecipeScheema;
+module.exports = RecipeSchema;

@@ -1,56 +1,68 @@
-import React from "react"
-import './Component.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Component.css";
 import Navbar from "./Navbar";
-import { Link } from 'react-router-dom';
-import gulabGamun from '../assets/Gulab-jamun.jpeg';
+import { Link } from "react-router-dom";
 import Card from "./Card";
-import { useState } from "react";
 
-function Recipe_tab(){
+function Recipe_tab() {
+    const [cards, setCards] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                const response = await axios.get("http://localhost:3000/recipe");
+                console.log("API Response:", response.data); 
     
-        // State to store card data
-        const [cards, setCards] = useState([
-          {
-            id: 1,
-            image: gulabGamun,
-            title: "Card 1",
-            description: "This is the description for Card 1.",
-            steps:["eefdffbfgfdg","fbdfbgbbbb"],
-            ingrediants:"Rice Tandul Tamata",
-          },
-          {
-            id: 2,
-            image: "https://via.placeholder.com/150",
-            title: "Card 2",
-            description: "This is the description for Card 2.",
-            steps:["eefdffbfgfdg","fbdfbgbbbb"],
-            ingrediants:"Rice Tandul Tamata",
-          }
-        ]);
-        
-     
-      
- 
+                if (response.data?.status && Array.isArray(response.data.data)) {
+                  
+                    setCards(response.data.data); 
+                } else {
+                    console.error("Unexpected API response:", response.data);
+                    setCards([]);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setError(error.response?.data?.message || "Failed to fetch recipes");
+                setCards([]); 
+            } finally {
+                setLoading(false);
+            }
+        };
+    
+        fetchRecipes();
+    }, []);
+   
+    
     return (
-       <>
-       <Navbar/>
-      <div className="container">
-        <button className="addRecipeBtn"><Link to="/Save_recipe">Add Recipe</Link></button>
-      <div className="cardContainer">
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            id={card.id}
-            image={card.image}
-            title={card.title}
-            description={card.description}
-            steps={card.steps}   
-            ingrediants={card.ingrediants}
-          />
-        ))}
-      </div>
-    </div>
-       </>
+        <>
+            <Navbar />
+            <div className="container">
+                <button className="addRecipeBtn">
+                    <Link to="/Save_recipe">Add Recipe</Link>
+                </button>
+
+                {loading && <p>Loading recipes...</p>}
+                {error && <p>Error: {error}</p>}
+
+                <div className="cardContainer">
+                    {cards.map((card) => (
+                        <Card
+                            key={card._id}
+                            id={card._id}
+                            image={"https://via.placeholder.com/300x200"}
+                            title={card.title}
+                            description={card.description}
+                            steps={card.steps}
+                            ingredients={card.ingredients}
+                        />
+                    ))}
+                </div>
+            </div>
+        </>
     );
 }
-export default Recipe_tab
+
+export default Recipe_tab;
