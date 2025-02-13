@@ -1,38 +1,37 @@
-import './Component.css';
-// import { Navigate,useNavigate } from 'react-router-dom';
-import axios from 'axios';
-function Recipe_info({ image, title, description, onClose, steps, ingredients ,id}) {
-    // const navigate = useNavigate();
-    const delCard=async()=>{
+import "./Component.css";
+import axios from "axios";
+
+function RecipeInfo({ image, title, description, onClose, steps, ingredients, id }) {
+    
+    const delCard = async () => {
         try {
             const response = await axios.delete(`http://localhost:3000/recipe/${id}`);
 
             if (response.status === 200) {
                 alert("Recipe deleted successfully!");
-                
-                
+                onClose();  // Close modal after deletion
             }
         } catch (error) {
             console.error("Error deleting recipe:", error);
             alert("Failed to delete recipe.");
         }
-    }
+    };
+
     return (
-        <div className="recipe-info-overlay">
-            <button className="close-btn" onClick={onClose} aria-label="Close">
-                &times;
-            </button>
-            <div className="recipe-info-content">
-                {image && <img src={image} alt={title || "Recipe image"} />}
-                <h5>{title}</h5>
-                <p>{description}</p>
+        <div className="recipe-overlay">
+            <div className="recipe-card">
+                <button className="close-btn" onClick={onClose} aria-label="Close">✖</button>
+                
+                {image && <img src={image} alt={title || "Recipe"} className="recipe-img" />}
+                <h2 className="recipe-title">{title}</h2>
+                <p className="recipe-desc">{description}</p>
 
                 {ingredients.length > 0 && (
                     <>
-                        <h6>Ingredients:</h6>
-                        <ul className="ingredients-list">
+                        <h3>Ingredients:</h3>
+                        <ul className="recipe-list">
                             {ingredients.map((ingredient, index) => (
-                                <li key={index} className="ingredient-item">{ingredient}</li>
+                                <li key={index} className="recipe-item">{ingredient}</li>
                             ))}
                         </ul>
                     </>
@@ -40,19 +39,19 @@ function Recipe_info({ image, title, description, onClose, steps, ingredients ,i
 
                 {steps.length > 0 && (
                     <>
-                        <h6>Steps:</h6>
-                        <ol className="steps-list">
+                        <h3>Steps:</h3>
+                        <ol className="recipe-list">
                             {steps.map((step, index) => (
-                                <li key={index} className="step-item">{step}</li>
+                                <li key={index} className="recipe-item">{step}</li>
                             ))}
                         </ol>
                     </>
                 )}
-                 <button className='btn-del' onClick={delCard}>delete</button>
+                
+                <button className="btn-delete" onClick={delCard}>Delete Recipe</button>
             </div>
-           
         </div>
     );
 }
 
-export default Recipe_info;
+export default RecipeInfo;
