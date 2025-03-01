@@ -1,19 +1,42 @@
 const Recipe = require("../models/RecipeScheema");
+const multer = require("multer");
+const path = require("path");
 
-const addData = async (req, res) => {
-  try {
-    const { title, description, ingredients, steps } = req.body;
-    if (!title || !description || !ingredients || !steps) {
-      return res.status(400).json({ status: false, message: "All fields are required." });
-    }
-    const newRecipe = new Recipe({ title, description, ingredients, steps });
-    await newRecipe.save();
-    res.status(201).json({ status: true, message: "Recipe added successfully", data: newRecipe });
-  } catch (error) {
-    res.status(500).json({ status: false, message: "Internal server error" });
+const storage = multer.diskStorage({
+  destination: "./uploads/",
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
   }
+});
+
+const upload = multer({ storage }).single("image");
+
+// Add new recipe with image upload
+const addData = async (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ status: false, message: "Image upload failed", error: err });
+    }
+
+    try {
+      const { title, description, ingredients, steps } = req.body;
+      if (!title || !description || !ingredients || !steps || !req.file) {
+        return res.status(400).json({ status: false, message: "All fields and image are required." });
+      }
+
+      const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;  
+
+      const newRecipe = new Recipe({ title, description, ingredients, steps, imageUrl });
+      await newRecipe.save();
+
+      res.status(201).json({ status: true, message: "Recipe added successfully", data: newRecipe });
+    } catch (error) {
+      res.status(500).json({ status: false, message: "Internal server error" });
+    }
+  });
 };
 
+// Get all recipes
 const getAllData = async (req, res) => {
   try {
     const data = await Recipe.find();
@@ -26,6 +49,7 @@ const getAllData = async (req, res) => {
   }
 };
 
+// Get a single recipe by ID
 const getRecipe = async (req, res) => {
   try {
     const { id } = req.params;
@@ -39,6 +63,7 @@ const getRecipe = async (req, res) => {
   }
 };
 
+// Delete a recipe
 const deleteRecipe = async (req, res) => {
   try {
     const { id } = req.params;

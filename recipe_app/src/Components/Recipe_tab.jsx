@@ -49,7 +49,7 @@ function RecipeTab() {
                             <Card
                                 key={card._id}
                                 id={card._id}
-                                image={card.image || "https://via.placeholder.com/300x200"}
+                                image={card.imageUrl || "https://picsum.photos/300/200"}
                                 title={card.title}
                                 description={card.description}
                                 steps={card.steps}

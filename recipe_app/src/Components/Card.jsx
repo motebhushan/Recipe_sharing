@@ -9,7 +9,7 @@ function Card({ id, image, title, description, steps, ingredients }) {
         <>
             <div className={`card ${active ? 'blur' : ''}`} id={id} onClick={() => setActive(true)}>
                 <div className="card-body">
-                    <img className="card-image" src={"https://picsum.photos/300/200"} alt={title} />
+                    <img className="card-image" src={image} alt={title} />
                     <h5 className="card-title">{title}</h5>
                     <p className="card-description">{description}</p>
                 </div>
@@ -17,7 +17,7 @@ function Card({ id, image, title, description, steps, ingredients }) {
 
             {active && (
                 <RecipeInfo
-                    image={"https://picsum.photos/300/200"}
+                    image={image}
                     title={title}
                     description={description}
                     onClose={() => setActive(false)}

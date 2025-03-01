@@ -4,7 +4,7 @@ body{
 }
 
 /* navbar css */
-/* Navbar Styling */
+
 .navbar {
   background:white; 
   padding: 15px 0;
@@ -68,6 +68,7 @@ body{
 
 
   /* navbar css ends here */
+  
   /* save_recipe css start */
   .form {
     max-width: 500px;
@@ -237,7 +238,7 @@ body{
 }
 
 /* recipe info csss start */
-/* Fullscreen Overlay */
+
 .recipe-overlay {
   position: fixed;
   top: 0;
